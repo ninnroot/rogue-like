@@ -1,21 +1,36 @@
-class Bullet{
-    constructor(x, y){
-        this.location = createVector(x, y);
-        this.diam = 10;
-        this.size = this.diam // alias
-        this.speed = 5;
-        this.damage = 1;
-        // this.direction = direction;
-        // this.direction.setMag(this.speed)
-    }
+class Bullet {
+  constructor(x, y) {
+    this.location = createVector(x, y);
 
-    draw(){
-        if (!(this.location.x <  player.location.x-screen.width/2 || this.location.x > player.location.x + screen.width/2 || this.location.y < player.location.y-screen.height/2 || this.location.y > player.location.y+ screen.height/2)){
-            ellipse(this.location.x, this.location.y, this.diam, this.diam)
-        }
-    }
+    this.diam = 10;
+    this.size = this.diam; // alias
+    this.color = "yellow";
 
-    move(){
-        this.location.add(this.dir)
+    this.speed = 5;
+    this.damage = 1;
+  }
+
+  draw() {
+    push();
+    fill(this.color);
+    if (
+      !(
+        this.location.x < player.location.x - player.lineOfSight ||
+        this.location.x > player.location.x + player.lineOfSight ||
+        this.location.y < player.location.y - player.lineOfSight ||
+        this.location.y > player.location.y + player.lineOfSight
+      )
+    ) {
+      ellipse(this.location.x, this.location.y, this.diam, this.diam);
     }
+    pop();
+  }
+
+  move() {
+    this.location.add(this.dir);
+  }
+
+  applyForce(f) {
+    this.acceleration.add(f);
+  }
 }
