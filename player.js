@@ -34,9 +34,17 @@ class Player {
 
   draw() {
     stroke(0);
+    
     this.setGunDirection();
-
     ellipse(this.location.x, this.location.y, this.size, this.size);
+  }
+
+  drawLineOfSight() {
+    push();
+    rectMode(CENTER)
+    fill(225, 100);
+    ellipse(this.location.x, this.location.y, this.lineOfSight*2, this.lineOfSight*2);
+    pop();
   }
 
   setGunDirection() {
