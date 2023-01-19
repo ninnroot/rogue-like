@@ -12,7 +12,7 @@ function setup(){
     screen.width = windowWidth*0.9;
     screen.height = windowHeight*0.9;
     createCanvas(screen.width, screen.height);
-    // playerCam = createCamera()
+    addScreenPositionFunction();
     fontMontserrat = loadFont("assets/Montserrat/Montserrat-VariableFont_wght.ttf")
     player = new Player();
     enemySystem = new EnemySystem(player);

@@ -3,7 +3,6 @@ class Player {
     this.velocity = new createVector(0, 0);
     this.location = new createVector(0, 0);
     this.acceleration = new createVector(0, 0);
-    this.angle = 0;
     
     this.size = 70;
     this.speed = 0.15;
@@ -36,19 +35,21 @@ class Player {
 
   draw() {
     stroke(0);
-    this.drawGun()
+    this.setGunDirection();
+
     ellipse(this.location.x, this.location.y, this.size, this.size);
   }
 
-  drawGun(){
+  setGunDirection(){
     push();
+    let s = screenPosition(this.location)
+    let angle = Math.atan2(mouseY -s.y, mouseX -s.x)
     translate(this.location.x, this.location.y)
-    rotate(radians(this.angle))
-    rectMode(CENTER)
-    rect(this.size/2,0, this.size*0.9, 20)
-
+    rotate(angle)
+    fill("black")
+    rectMode(CENTER);
+    rect(this.size/2, 0, this.size*0.9, 20)
     pop();
-
   }
 
   interaction() {
@@ -64,19 +65,8 @@ class Player {
     if (keyIsDown(68)) { // d
       this.applyForce(createVector(this.speed, 0));
     }
-    if (keyIsDown(32)){ // space
+    if (mouseIsPressed){ // space
         this.fire()
-    }
-    this.turnGun()
-
-  }
-
-  turnGun(){
-    if(keyIsDown(74)){ // j
-      this.angle-=this.turnRate
-    }
-    if(keyIsDown(76)){ // l
-      this.angle+=this.turnRate
     }
 
   }
@@ -113,9 +103,7 @@ class Player {
   fire(){
     if (this.secSinceLastFire * (this.attackSpeed/10) > 1){
         this.secSinceLastFire = 0;
-        let mouseDir = p5.Vector.fromAngle(radians(this.angle), 30)
-        mouseDir.normalize();
-        // let mouseDir = createVector(mouseX-screen.width/2, mouseY-screen.height/2).sub(this.location);
+        let mouseDir = createVector(mouseX, mouseY).sub(screenPosition(this.location));
         mouseDir.setMag(this.size)
         this.bulletSystem.fire(this.location.x, this.location.y, mouseDir, p5.Vector.add(this.location, mouseDir));
     }
