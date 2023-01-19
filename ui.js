@@ -4,9 +4,11 @@ class MenuBar {
    * @param {Player} player 
    */
   constructor(player) {
-    this.width = screen.width;
-    this.height = 200;
+    this.width = 200;
+    this.height = screen.height;
     this.player = player
+    this.startX = screen.width/2 + 50
+    this.startY = screen.height/2 - this.height
   }
 
   run() {
@@ -16,11 +18,9 @@ class MenuBar {
   draw() {
     push();
     stroke(29, 30, 32, 0);
-    fill(29, 30, 32, 100);
+    fill(29, 30, 32, );
     translate(player.location.x, player.location.y)
-    rect(-screen.width/2, screen.height/2 - this.height, this.width, this.height);
-
-    translate(-screen.width/2, screen.height/2-this.height);
+    rect(this.start, this.startY, this.width, this.height);
     this.drawStats();
     pop();
   }
@@ -30,7 +30,7 @@ class MenuBar {
     stroke(255)
     textSize(14);
     textFont(fontMontserrat)
-    let column = {x1: 10, y1: 20, x2: 190, y2: 190}
+    let column = {x1: this.startX + 10, y1: this.startY + 20}
     let rowValue = 0
     let stats = [
       {label: "x: ", value: round(this.player.location.x,0)},
