@@ -41,8 +41,9 @@ class Player {
 
   drawLineOfSight() {
     push();
+    
     rectMode(CENTER)
-    fill(225, 100);
+    fill(255, 100);
     ellipse(this.location.x, this.location.y, this.lineOfSight*2, this.lineOfSight*2);
     pop();
   }

@@ -31,7 +31,7 @@ class EnemySystem {
   }
 
   spawnEnemies() {
-    let enemy = new Enemy(screen.width / 2, screen.height / 2);
+    let enemy = new Enemy(screen.width / 2, screen.height / 2, this.player);
     enemy.dir = p5.Vector.sub(this.player.location, enemy.location);
     enemy.dir.setMag(enemy.speed);
     this.enemies.push(enemy);

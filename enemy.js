@@ -1,5 +1,12 @@
 class Enemy {
-  constructor(x, y) {
+    /**
+     * 
+     * @param {number} x 
+     * @param {number} y 
+     * @param {Player} player 
+     */
+  constructor(x, y, player) {
+    this.player = player
     this.location = createVector(x, y);
     this.size = 20;
 
@@ -18,8 +25,12 @@ class Enemy {
 
   draw() {
     push();
+    rectMode(CENTER)
     fill("red");
-    rect(this.location.x, this.location.y, this.size, this.size);
+    if(p5.Vector.sub(this.location, this.player.location).mag() < this.player.lineOfSight){
+
+        rect(this.location.x, this.location.y, this.size, this.size);
+    }
     pop();
   }
   /**

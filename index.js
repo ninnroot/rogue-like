@@ -55,6 +55,8 @@ function drawBackgroundGrid() {
     playBox.width,
     playBox.height
   );
+  stroke(0)
+  strokeWeight(10)
   fill(10, 220);
   rectMode(CENTER);
   rect(0, 0, playBox.width, playBox.height);
