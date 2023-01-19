@@ -1,7 +1,12 @@
 class MenuBar {
-  constructor() {
+  /**
+   * 
+   * @param {Player} player 
+   */
+  constructor(player) {
     this.width = screen.width;
     this.height = 200;
+    this.player = player
   }
 
   run() {
@@ -25,10 +30,18 @@ class MenuBar {
     textSize(14);
     textFont(fontMontserrat)
     let column = {x1: 10, y1: 20, x2: 190, y2: 190}
-    let rowValue = 15
-    text("x: "+ round(player.location.x, 0), column.x1, column.y1)
-    text("y: "+ round(player.location.y, 0), column.x1, column.y1 + rowValue)
-    text("attackSpeed: "+ round(player.attackSpeed, 2), column.x1, column.y1 + rowValue*2)
-    text("frameRate: " + round(frameRate(), 0), column.x1, column.y1 + rowValue*3)
+    let rowValue = 0
+    let stats = [
+      {label: "x: ", value: round(this.player.location.x,0)},
+      {label: "y: ", value: round(this.player.location.y,0)},
+      {label: "attackSpeed: ", value: round(this.player.attackSpeed,0)},
+      {label: "velocity: ", value: round(this.player.velocity.mag(),0)},
+      {label: "fps: ", value: round(frameRate(),0)},
+    ];
+    for (let i = 0; i < stats.length; i++){
+      text(stats[i].label+ stats[i].value, column.x1, column.y1 + rowValue)
+      rowValue+=15
+    }
+
   }
 }

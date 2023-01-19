@@ -1,5 +1,7 @@
 class Player {
+
   constructor() {
+
     this.velocity = new createVector(0, 0);
     this.location = new createVector(0, 0);
     this.acceleration = new createVector(0, 0);
