@@ -22,6 +22,7 @@ function setup() {
   player = new Player();
   enemySystem = new EnemySystem(player);
   menuBar = new MenuBar(player);
+  enemySystem.spawnEnemy()
 }
 
 function loadAssets() {

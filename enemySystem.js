@@ -9,7 +9,7 @@ class EnemySystem {
     this.draw();
     // this.edges();
     if (keyIsDown(32)) {
-      this.spawnEnemies();
+      this.spawnEnemy();
     }
   }
   draw() {
@@ -30,7 +30,7 @@ class EnemySystem {
     }
   }
 
-  spawnEnemies() {
+  spawnEnemy() {
     let enemy = new Enemy(screen.width / 2, screen.height / 2, this.player);
     enemy.dir = p5.Vector.sub(this.player.location, enemy.location);
     enemy.dir.setMag(enemy.speed);
