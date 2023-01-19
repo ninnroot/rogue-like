@@ -1,12 +1,14 @@
 class Player {
   constructor() {
     this.velocity = new createVector(0, 0);
-    this.location = new createVector(playBox.width / 2, playBox.height / 2);
+    this.location = new createVector(0, 0);
     this.acceleration = new createVector(0, 0);
+    this.angle = 0;
+    
+    this.size = 70;
     this.speed = 0.15;
     this.maxSpeed = 10;
-    this.size = 70;
-
+    this.turnRate = 2;
     this.attackSpeed = 5 // bullet per second
 
     this.bulletSystem = new BulletSystem();
@@ -34,62 +36,66 @@ class Player {
 
   draw() {
     stroke(0);
-    this.followMouse();
+    this.drawGun()
     ellipse(this.location.x, this.location.y, this.size, this.size);
   }
 
-  followMouse(){
+  drawGun(){
     push();
-    let posX = this.location.x
-    let posY = this.location.y
-
-    let angle = Math.atan2(mouseY-posY, mouseX-posX);
-    translate(posX, posY)
-
-    rotate(angle)
-
-    fill("black")
-
+    translate(this.location.x, this.location.y)
+    rotate(radians(this.angle))
     rectMode(CENTER)
     rect(this.size/2,0, this.size*0.9, 20)
-    pop()
 
+    pop();
 
   }
 
   interaction() {
-    if (keyIsDown(87)) {
+    if (keyIsDown(87)) { // w
       this.applyForce(createVector(0, -this.speed));
     }
-    if (keyIsDown(65)) {
+    if (keyIsDown(65)) { // a
       this.applyForce(createVector(-this.speed, 0));
     }
-    if (keyIsDown(83)) {
+    if (keyIsDown(83)) { // s
       this.applyForce(createVector(0, this.speed));
     }
-    if (keyIsDown(68)) {
+    if (keyIsDown(68)) { // d
       this.applyForce(createVector(this.speed, 0));
     }
-    if (mouseIsPressed){
+    if (keyIsDown(32)){ // space
         this.fire()
     }
+    this.turnGun()
+
+  }
+
+  turnGun(){
+    if(keyIsDown(74)){ // j
+      this.angle-=this.turnRate
+    }
+    if(keyIsDown(76)){ // l
+      this.angle+=this.turnRate
+    }
+
   }
 
   edges() {
-    if (this.location.x - this.size/2 < 0){
-        this.location.x = 0 + this.size/2
+    if (this.location.x - this.size/2 < -playBox.width/2){
+        this.location.x = -playBox.width/2 + this.size/2
         this.velocity.x = 0
     } 
-    else if (this.location.x + this.size/2  > playBox.width){
-        this.location.x = playBox.width - this.size/2
+    else if (this.location.x + this.size/2  > playBox.width/2){
+        this.location.x = playBox.width/2 - this.size/2
         this.velocity.x = 0;
     } 
-    else if (this.location.y - this.size/2 < 0){
-        this.location.y = 0 + this.size/2
+    else if (this.location.y - this.size/2 < -playBox.height/2){
+        this.location.y = -playBox.height/2 + this.size/2
         this.velocity.y = 0;
     }
-    else if (this.location.y + this.size/2 > playBox.height){
-        this.location.y = playBox.height - this.size/2
+    else if (this.location.y + this.size/2 > playBox.height/2){
+        this.location.y = playBox.height/2 - this.size/2
         this.velocity.y = 0;
     };
   }
@@ -107,7 +113,9 @@ class Player {
   fire(){
     if (this.secSinceLastFire * (this.attackSpeed/10) > 1){
         this.secSinceLastFire = 0;
-        let mouseDir = createVector(mouseX, mouseY).sub(this.location);
+        let mouseDir = p5.Vector.fromAngle(radians(this.angle), 30)
+        mouseDir.normalize();
+        // let mouseDir = createVector(mouseX-screen.width/2, mouseY-screen.height/2).sub(this.location);
         mouseDir.setMag(this.size)
         this.bulletSystem.fire(this.location.x, this.location.y, mouseDir, p5.Vector.add(this.location, mouseDir));
     }

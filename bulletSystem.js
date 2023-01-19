@@ -38,7 +38,7 @@ class BulletSystem {
     edges(){
       for (let i = 0; i < this.bullets.length; i++){
   
-        if (this.bullets[i].location.x > playBox.width || this.bullets[i].location.x < 0 || this.bullets[i].location.y > playBox.height || this.bullets[i].location.y < 0){
+        if (this.bullets[i].location.x > playBox.width/2 || this.bullets[i].location.x < -playBox.width/2 || this.bullets[i].location.y > playBox.height/2 || this.bullets[i].location.y < -playBox.height/2){
           this.bullets.splice(i, 1);
           i--;
         }

@@ -12,9 +12,10 @@ class MenuBar {
     push();
     stroke(255);
     fill(29, 30, 32);
-    rect(0, screen.height - this.height, this.width, this.height);
+    translate(player.location.x, player.location.y)
+    rect(-screen.width/2, screen.height/2 - this.height, this.width, this.height);
 
-    translate(0, screen.height - this.height);
+    translate(-screen.width/2, screen.height/2-this.height);
     this.drawStats();
     pop();
   }
