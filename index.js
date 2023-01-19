@@ -8,9 +8,10 @@ var playerCam;
 var bgImage;
 
 function setup() {
-  screen.width = windowWidth * 0.9;
-  screen.height = windowHeight * 0.9;
+  screen.width = windowWidth * 0.7;
+  screen.height = windowHeight * 0.7;
   createCanvas(screen.width, screen.height);
+  frameRate(60)
   addScreenPositionFunction();
   loadAssets();
 
@@ -37,6 +38,8 @@ function draw() {
   enemySystem.run();
   menuBar.run();
   checkCollisions(player, enemySystem);
+
+
 }
 
 function drawBackgroundGrid() {
@@ -47,8 +50,19 @@ function drawBackgroundGrid() {
   let colorSwitch = true;
   for (let i = -playBox.width / 2; i < playBox.width / 2; i += 50) {
     for (let j = -playBox.height / 2; j < playBox.height / 2; j += 50) {
-      fill(colorSwitch ? color(225) : color(200));
-      rect(i, j, 50, 50);
+        if(!(i<player.location.x - screen.width/2 || i > player.location.x + screen.width/2 || j < player.location.y - screen.height/2 || j > player.location.y + screen.height/2)){
+            fill(colorSwitch ? color(225) : color(200));
+            if((i<player.location.x - screen.width/4 || i > player.location.x + screen.width/4 || j < player.location.y - screen.height/4 || j > player.location.y + screen.height/4)){
+                fill(colorSwitch ? color(10, 200) : color(0, 200));
+            }
+           
+            rect(i, j, 50, 50);
+
+        }
+
+            
+        
+      
       colorSwitch = !colorSwitch;
     }
     colorSwitch = !colorSwitch;

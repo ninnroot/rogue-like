@@ -25,7 +25,8 @@ class BulletSystem {
     draw(){
       fill(255);
       for (var i=0; i<this.bullets.length; i++){
-        ellipse(this.bullets[i].location.x, this.bullets[i].location.y, this.bullets[i].diam, this.bullets[i].diam);
+        this.bullets[i].draw();
+        // ellipse(this.bullets[i].location.x, this.bullets[i].location.y, this.bullets[i].diam, this.bullets[i].diam);
       }
     }
   

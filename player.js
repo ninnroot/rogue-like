@@ -29,7 +29,8 @@ class Player {
   }
 
   move() {
-    this.velocity.add(this.acceleration);
+    this.velocity.add(this.acceleration)
+    // this.velocity.add(p5.Vector.add(this.acceleration, createVector(0,0).normalize().setMag(deltaTime)));
     this.location.add(this.velocity);
     this.acceleration.mult(0);
     this.velocity.limit(this.maxSpeed);
