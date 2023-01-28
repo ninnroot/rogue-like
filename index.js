@@ -40,7 +40,6 @@ function draw() {
     screen.height / 2 - player.location.y
   );
   drawBackgroundGrid();
-  player.drawLineOfSight();
   player.run();
   enemySystem.run();
   menuBar.run();
@@ -58,7 +57,7 @@ function drawBackgroundGrid() {
   );
   stroke(0)
   strokeWeight(10)
-  fill(10, 220);
+  fill(10,50)
   rectMode(CENTER);
   rect(0, 0, playBox.width, playBox.height);
 

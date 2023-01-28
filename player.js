@@ -9,7 +9,6 @@ class Player {
     this.maxSpeed = 10;
     this.turnRate = 2;
     this.attackSpeed = 5; // bullet per second
-    this.lineOfSight = 250;
 
     this.bulletSystem = new BulletSystem();
     this.secSinceLastFire = 0;
@@ -39,14 +38,6 @@ class Player {
     ellipse(this.location.x, this.location.y, this.size, this.size);
   }
 
-  drawLineOfSight() {
-    push();
-    
-    rectMode(CENTER)
-    fill(255, 100);
-    ellipse(this.location.x, this.location.y, this.lineOfSight*2, this.lineOfSight*2);
-    pop();
-  }
 
   setGunDirection() {
     push();

@@ -5,7 +5,7 @@ class Bullet {
     this.diam = 10;
     this.size = this.diam; // alias
     this.color = "yellow";
-    
+
     this.speed = 5;
     this.damage = 1;
   }
@@ -13,17 +13,10 @@ class Bullet {
   draw() {
     push();
     fill(this.color);
-    // draw only within the line-of-sight of the player.
-    if(p5.Vector.sub(this.location, player.location).mag() < player.lineOfSight){
-      ellipse(this.location.x, this.location.y, this.diam, this.diam);
-
-    }
+    ellipse(this.location.x, this.location.y, this.diam, this.diam);
 
     pop();
-
   }
-
-
 
   move() {
     this.location.add(this.dir);
